@@ -1,6 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="colorPrimary">#3F51B5</color>
+    <color name="colorNumber">#FFFFFF</color>
+    <color name="colorBackgroundNumber">#BBBBBB</color>
+    <color name="colorEqual">#FFFFFF</color>
+    <color name="colorBackgroundEqual">#FF8888</color>
+    <color name="colorReset">#FFFFFF</color>
+    <color name="colorBackgroundReset">#BBBBBB</color>
+    <color name="colorResult">#000000</color>
+    <color name="colorSeparator">#FFFFFF</color>
+    <color name="colorOperation">#FFFFFF</color>
+    <color name="colorBackgroundOperation">#888888</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
 </resources>
