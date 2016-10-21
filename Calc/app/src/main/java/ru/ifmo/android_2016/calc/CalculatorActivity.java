@@ -3,6 +3,7 @@ package ru.ifmo.android_2016.calc;
 import android.app.Activity;
 import android.os.Bundle;
 import android.text.method.ScrollingMovementMethod;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.TextView;
@@ -23,7 +24,6 @@ public final class CalculatorActivity extends Activity implements View.OnClickLi
 
     public BigDecimal currentResult = BigDecimal.ZERO;
     public BigDecimal value = BigDecimal.ZERO;
-    public String buffer = "";
     public char operation = '0';
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,20 +35,23 @@ public final class CalculatorActivity extends Activity implements View.OnClickLi
         currentBuffer = (TextView) findViewById(R.id.resultOperator);
 
         if (savedInstanceState != null) {
-            currentResult = BigDecimal.valueOf(Double.parseDouble(savedInstanceState.getString("result")));
+            currentResult = BigDecimal.valueOf(Double.parseDouble(savedInstanceState.getString("result","0")));
             value = BigDecimal.valueOf(Double.parseDouble(savedInstanceState.getString("value", "0")));
             operation = savedInstanceState.getChar("operation", '0');
+        } else {
+            currentResult = BigDecimal.ZERO;
+            value = BigDecimal.ZERO;
+            operation = '0';
         }
-
 
         resultText.setText(currentResult.toString());
         resultText.setMovementMethod(new ScrollingMovementMethod());
+
         if (operation != '0') {
             currentBuffer.setText(value.toString() + " " + operation);
         } else {
             currentBuffer.setText("");
         }
-
         findViewById(R.id.d0).setOnClickListener(this);
         findViewById(R.id.d1).setOnClickListener(this);
         findViewById(R.id.d2).setOnClickListener(this);
@@ -143,7 +146,8 @@ public final class CalculatorActivity extends Activity implements View.OnClickLi
     private void makeResult() {
 
         if (operation != '0') {
-
+            Log.d("calc", currentResult.toString());
+            Log.d("calc", value.toString());
             switch (operation) {
                 case '+':
                     value = value.add(currentResult);
@@ -158,19 +162,22 @@ public final class CalculatorActivity extends Activity implements View.OnClickLi
 
                     try {
 
-                        value = value.divide(currentResult);
+                        value = value.divide(currentResult, 10, BigDecimal.ROUND_HALF_EVEN);
                     } catch (ArithmeticException e) {
                         Toast toast = Toast.makeText(getApplicationContext(),
                                 "И зачем ты это делаешь?", Toast.LENGTH_SHORT);
                         toast.setGravity(Gravity.BOTTOM, 0, 0);
                         toast.show();
-                        resultText.setText("");
+
                         operation = '0';
                         currentBuffer.setText("");
                         currentResult = BigDecimal.ZERO;
+                        resultText.setText(currentResult.toString());
+                        return;
                     }
                     break;
             }
+            Log.d("calc", value.toString());
             resultText.setText(value.toString());
             operation = '0';
             currentBuffer.setText("");
