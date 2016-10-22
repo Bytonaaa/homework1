@@ -35,7 +35,7 @@ public final class CalculatorActivity extends Activity implements View.OnClickLi
         currentBuffer = (TextView) findViewById(R.id.resultOperator);
 
         if (savedInstanceState != null) {
-            currentResult = BigDecimal.valueOf(Double.parseDouble(savedInstanceState.getString("result","0")));
+            currentResult = BigDecimal.valueOf(Double.parseDouble(savedInstanceState.getString("currentResult","0")));
             value = BigDecimal.valueOf(Double.parseDouble(savedInstanceState.getString("value", "0")));
             operation = savedInstanceState.getChar("operation", '0');
         } else {
