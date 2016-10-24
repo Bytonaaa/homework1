@@ -15,7 +15,7 @@ import java.math.BigDecimal;
  * Created by Alex on 19.10.16.
  */
 
-public final class CalculatorActivity extends Activity implements View.OnClickListener {
+public final class CalculatorActivity extends Activity {
 
 
     //Init textview
@@ -52,82 +52,29 @@ public final class CalculatorActivity extends Activity implements View.OnClickLi
         } else {
             currentBuffer.setText("");
         }
-        findViewById(R.id.d0).setOnClickListener(this);
-        findViewById(R.id.d1).setOnClickListener(this);
-        findViewById(R.id.d2).setOnClickListener(this);
-        findViewById(R.id.d3).setOnClickListener(this);
-        findViewById(R.id.d4).setOnClickListener(this);
-        findViewById(R.id.d5).setOnClickListener(this);
-        findViewById(R.id.d6).setOnClickListener(this);
-        findViewById(R.id.d7).setOnClickListener(this);
-        findViewById(R.id.d8).setOnClickListener(this);
-        findViewById(R.id.d9).setOnClickListener(this);
-        findViewById(R.id.div).setOnClickListener(this);
-        findViewById(R.id.add).setOnClickListener(this);
-        findViewById(R.id.sub).setOnClickListener(this);
-        findViewById(R.id.mul).setOnClickListener(this);
-        findViewById(R.id.clear).setOnClickListener(this);
-        findViewById(R.id.equal).setOnClickListener(this);
+
+        findViewById(R.id.d0).setOnClickListener((v) -> addNumber(0));
+        findViewById(R.id.d1).setOnClickListener((v) -> addNumber(1));
+        findViewById(R.id.d2).setOnClickListener((v) -> addNumber(2));
+        findViewById(R.id.d3).setOnClickListener((v) -> addNumber(3));
+        findViewById(R.id.d4).setOnClickListener((v) -> addNumber(4));
+        findViewById(R.id.d5).setOnClickListener((v) -> addNumber(5));
+        findViewById(R.id.d6).setOnClickListener((v) -> addNumber(6));
+        findViewById(R.id.d7).setOnClickListener((v) -> addNumber(7));
+        findViewById(R.id.d8).setOnClickListener((v) -> addNumber(8));
+        findViewById(R.id.d9).setOnClickListener((v) -> addNumber(9));
+        findViewById(R.id.div).setOnClickListener((v) -> doOperation('/'));
+        findViewById(R.id.add).setOnClickListener((v) -> doOperation('+'));
+        findViewById(R.id.sub).setOnClickListener((v) -> doOperation('-'));
+        findViewById(R.id.mul).setOnClickListener((v) -> doOperation('*'));
+        findViewById(R.id.clear).setOnClickListener((v) -> {
+            currentResult = BigDecimal.ZERO;
+            resultText.setText(currentResult.toString());});
+
+        findViewById(R.id.equal).setOnClickListener((v) ->  makeResult());
 
 
 
-    }
-
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case (R.id.clear):
-                currentResult = BigDecimal.ZERO;
-                resultText.setText(currentResult.toString());
-                break;
-            case (R.id.add):
-                doOperation('+');
-                break;
-            case (R.id.sub):
-                doOperation('-');
-                break;
-            case (R.id.mul):
-                doOperation('*');
-                break;
-            case (R.id.div):
-                doOperation('/');
-                break;
-            case (R.id.equal):
-                makeResult();
-                break;
-
-            case (R.id.d0):
-                addNumber(0);
-                break;
-            case (R.id.d1):
-                addNumber(1);
-                break;
-            case (R.id.d2):
-                addNumber(2);
-                break;
-            case (R.id.d3):
-                addNumber(3);
-                break;
-            case (R.id.d4):
-                addNumber(4);
-                break;
-            case (R.id.d5):
-                addNumber(5);
-                break;
-            case (R.id.d6):
-                addNumber(6);
-                break;
-            case (R.id.d7):
-                addNumber(7);
-                break;
-            case (R.id.d8):
-                addNumber(8);
-                break;
-            case (R.id.d9):
-                addNumber(9);
-                break;
-
-        }
     }
 
     private void addNumber(int digit) {
